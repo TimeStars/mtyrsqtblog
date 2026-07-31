@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 禁止缓存 -->
+    <!-- <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0"> -->
+    <title>明天依然是晴天 | 博客导航</title>
+
+
+
+
+
+
+    <!--
+　　　           欢迎来到明天依然是晴天
+       ☁︎────────────────────────────────────☁︎
+     /                                          \
+    /     ☀ 追风赶月莫停留，平芜尽处是春山 ☀      \
+    \                                            /
+       ☁︎────────────────────────────────────☁︎
+    -->
+
+
+
+
+
+
+
+
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --game: #7234d1;
+            --game-light: #f7f3ff;
+            --notice: #f59e0b;
+            --gray100: #f3f4f6;
+            --gray200: #e5e7eb;
+            --gray300: #d1d5db;
+            --gray400: #9ca3af;
+            --gray500: #6b7280;
+            --gray600: #4b5563;
+            --gray700: #374151;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+            height: 100%; 
+        }
+        body {
+            background-color: var(--gray100);
+            color: var(--gray600);
+            overflow-x: hidden;
+            min-height: 100%; 
+            display: flex;
+            flex-direction: column; 
+        }
+  
+        section {
+            padding: 5rem 0;
+            margin: 0;
+        }
+        footer {
+            margin-top: auto;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            transition: box-shadow 0.4s ease;
+        }
+        .nav-wrap {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray200);
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--gray400);
+        }
+        .desktop-nav {
+            display: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                 padding-inline: 16px;
+                }
+            .menu-btn {
+                 padding-right: 10px;
+                }
+        }
+        .desktop-nav a {
+            position: relative;
+            color: var(--gray600);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .desktop-nav a:hover {
+            color: var(--primary);
+        }
+        .desktop-nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.25rem;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+        .desktop-nav .game-link {
+            color: var(--gray600);
+            font-weight: 500;
+        }
+        .desktop-nav .game-link::after {
+            background: var(--primary);
+        }
+        .menu-btn {
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        @media (min-width: 768px) {
+            .menu-btn {
+                display: none;
+            }
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 1.5rem 1.25rem;
+            background: #fff;
+            border-top: 1px solid var(--gray200);
+        }
+        .mobile-menu.show {
+            display: flex;
+        }
+        .mobile-menu a {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray100);
+            text-decoration: none;
+            color: var(--gray600);
+        }
+        .mobile-menu .game-link {
+            color: var(--gray600);
+        }
+        /* 滚动动画 */
+        .scroll-item {
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.2,0,0.2,1);
+        }
+        .fade-up {
+            transform: translateY(70px);
+        }
+        .fade-left {
+            transform: translateX(-70px);
+        }
+        .fade-right {
+            transform: translateX(70px);
+        }
+        .scale-in {
+            transform: scale(0.88);
+        }
+        .scroll-item.active {
+            opacity: 1;
+            transform: translate(0,0) scale(1);
+        }
+        /* 首屏标题入场动画 */
+        .hero-title-animate {
+            animation: heroTitleIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        .hero-desc-animate {
+            animation: heroDescIn 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        @keyframes heroTitleIn {
+            from {opacity:0; transform: translateY(30px);}
+            to {opacity:1; transform: translateY(0);}
+        }
+        @keyframes heroDescIn {
+            from {opacity:0; transform: translateY(20px);}
+            to {opacity:1; transform: translateY(0);}
+        }
+        /* 首屏  */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url(./image/background.png);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .mask-dark {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+        }
+        .hero-content {
+            position: relative;
+            text-align: center;
+            padding: 0 1.5rem;
+            max-width: 64rem;
+            z-index: 2;
+        }
+        .hero-tag {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.375rem 1rem;
+            border: 1px solid rgba(255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 0.875rem;
+            border-radius: 999px;
+        }
+        .hero-content h2 {
+            font-size: clamp(2.5rem,8vw,5rem);
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: clamp(1rem,2vw,1.4rem);
+            color: var(--gray100);
+            line-height: 1.6;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+        /* 首屏滚动箭头 */
+        .scroll-down {
+            position: absolute;
+            left: 50%;
+            bottom: 3rem;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.8rem;
+            animation: bounce 2s infinite;
+            z-index: 2;
+        }
+        @keyframes bounce {
+            0%,100% {transform: translateX(-50%) translateY(0);}
+            50% {transform: translateX(-50%) translateY(12px);}
+        }
+        /* 通用区块 */
+        section {
+            padding: 5rem 0;
+        }
+        
+        #article {
+            padding-top: 7rem;
+            padding-bottom: 7rem;
+        }
+        #game {
+            background: linear-gradient(to bottom, #fff, var(--game-light));
+            padding-bottom: 7rem;
+        }
+        .section-head {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-head h3 {
+            font-size: clamp(1.875rem,4vw,2.5rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+        .line-primary {
+            width: 6rem;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 999px;
+            margin: 0 auto;
+        }
+        .line-game {
+            background: var(--primary);
+        }
+        .section-head p {
+            margin-top: 1rem;
+            color: var(--gray500);
+        }
+        /* 精选板块 */
+        #banner-gallery {
+            background: var(--gray200);
+        }
+        .grid-two {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .grid-two {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .carousel-box {
+            height: 400px;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .carousel-item {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            animation: carousel-fade 16s infinite ease-in-out;
+            /* 轮播图自适应 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        @keyframes carousel-fade {
+            0% {opacity:0}
+            15% {opacity:1}
+            85% {opacity:1}
+            100% {opacity:0}
+        }
+        /* 图片接口轮播大图 */
+        .carousel-item:nth-child(1) {animation-delay: 0s; background-image: url("./image/background.png");}
+        /* .carousel-item:nth-child(2) {animation-delay: -4s; background-image: url("./image/background.png");} */
+        /* .carousel-item:nth-child(3) {animation-delay: -8s; background-image: url("./image/background.png");} */
+        /* .carousel-item:nth-child(4) {animation-delay: -12s; background-image: url("./image/background.png");} */
+        .carousel-desc {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1.25rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: #fff;
+        }
+        .carousel-desc h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .carousel-desc p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+        .text-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 1.25rem;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .text-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.12);
+        }
+        .text-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        .btn-base {
+            display: inline-block;
+            padding: 0.7rem 1.4rem;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 0.4rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-base:hover {
+            background: #1d4ed8;
+        }
+        /* 游戏板块 */
+        .grid-three {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .grid-three {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid-three {
+                grid-template-columns: repeat(3,1fr);
+            }
+        }
+        /* 生活图集方块布局 */
+        .grid-four {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .grid-four {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid-four {
+                grid-template-columns: repeat(4,1fr);
+            }
+        }
+        .game-card {
+            background: #fff;
+            padding: 1.4rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        .game-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.7rem;
+        }
+        .game-head h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .tag-game {
+            padding: 0.2rem 0.5rem;
+            background: var(--game-light);
+            color: var(--game);
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+        }
+        .game-tip {
+            font-size: 0.85rem;
+            color: var(--gray500);
+            margin-bottom: 0.7rem;
+        }
+        /* 复制框单行省略，超长自动隐藏 */
+        .copy-box {
+            background: var(--gray100);
+            padding: 0.7rem 4.5rem 0.7rem 0.7rem;
+            border-radius: 0.4rem;
+            font-size: 0.85rem;
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 50%;
+            right: 0.7rem;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: var(--game);
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 3.2rem;
+            text-align: center;
+        }
+        /* 单行文本弹窗 */
+        #textViewModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        #textViewModal.show {
+            display: flex;
+        }
+        .modal-single-line {
+            background: #fff;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            max-width: 95vw;
+        }
+        .modal-text-content {
+            white-space: nowrap;
+            overflow-x: auto;
+            padding-right: 0.5rem;
+        }
+        .modal-text-content::-webkit-scrollbar {
+            height: 4px;
+        }
+        .modal-text-content::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 99px;
+        }
+        .modal-copy-action {
+            white-space: nowrap;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .modal-copy-action button {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 0.3rem;
+            cursor: pointer;
+        }
+        .modal-copy-btn {
+            background: var(--primary);
+            color: #fff;
+        }
+        .modal-close-btn {
+            background: var(--gray300);
+            color: #333;
+        }
+        /* 图集大图弹窗 */
+        #galleryImgModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0.82);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        #galleryImgModal.show {
+            display: flex;
+        }
+        .gallery-modal-main {
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: modalPop 0.28s ease-out;
+        }
+        .gallery-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--gray200);
+        }
+        .gallery-modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .gallery-modal-close-top {
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray500);
+        }
+        .gallery-modal-body {
+            padding: 16px;
+            overflow-y: auto; /* 弹窗内图片上下滚动 */
+            max-height: calc(90vh - 60px);
+        }
+        .gallery-modal-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .gallery-modal-body::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        .modal-img-item {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: block; 
+            object-fit: contain;
+        }
+        /* 游戏多条复制弹窗 */
+        #gameMultiModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0.6);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        #gameMultiModal.show {
+            display: flex;
+        }
+        .game-modal-main {
+            width: 100%;
+            max-width: 620px;
+            max-height: 85vh;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: modalPop 0.28s ease-out;
+        }
+        .game-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--gray200);
+        }
+        .game-modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .game-modal-close-top {
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray500);
+        }
+        .game-modal-body {
+            padding: 16px 20px;
+            overflow-y: auto;
+            max-height: calc(85vh - 60px);
+        }
+        .game-modal-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .game-modal-body::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        .copy-line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: var(--gray100);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+        .copy-text-val {
+            font-size: 14px;
+            color: var(--dark);
+            word-break: break-all;
+        }
+        .copy-line-btn {
+            flex-shrink: 0;
+            border: none;
+            padding: 6px 12px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        /* 弹窗弹出动画 */
+        @keyframes modalPop {
+            from {opacity:0; transform: scale(0.94);}
+            to {opacity:1; transform: scale(1);}
+        }
+        /* 图集卡片hover动效 */
+        .gallery-card {
+            background: #fff;
+            border-radius: 0.6rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.32s ease;
+            cursor: pointer;
+        }
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.11);
+        }
+        .gallery-img {
+            height: 11rem;
+            /* 图集图片自适应 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.45s ease;
+        }
+        .gallery-card:hover .gallery-img {
+            transform: scale(1.07);
+        }
+        /* 图集图片接口 */
+        .gallery-card:nth-child(1) .gallery-img {background-image: url("./image/background.png");}
+        /* .gallery-card:nth-child(2) .gallery-img {background-image: url("./image/background.png");} */
+        /* .gallery-card:nth-child(3) .gallery-img {background-image: url("./image/background.png");} */
+        /* .gallery-card:nth-child(4) .gallery-img {background-image: url("./image/background.png");} */
+        .gallery-info {
+            padding: 0.9rem;
+        }
+        .gallery-info h5 {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        .gallery-info p {
+            font-size: 0.85rem;
+            color: var(--gray500);
+            margin-top: 0.2rem;
+        }
+        /* 文章卡片 */
+        .article-card {
+            background: #fff;
+            padding: 1.4rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-decoration: none;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .article-card:hover {
+            transform: translateY(-6px);
+        }
+        .tag-tech {background:#dbeafe; color:var(--primary);}
+        .tag-life {background:#dcfce7; color:#16a34a;}
+        .tag-photo {background:#ffedd5; color:#ea580c;}
+        .tag-book {background:#f3e8ff; color:#9333ea;}
+        .tag-tool {background:#fee2e2; color:#dc2626;}
+        .tag-travel {background:#cffafe; color:#0891b2;}
+        .article-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .article-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0.7rem 0 0.5rem;
+        }
+        .article-card p {
+            font-size: 0.85rem;
+            color: var(--gray500);
+        }
+        .read-link {
+            margin-top: 1rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        /* 常用导航 胶囊圆角 */
+        .link-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.9rem;
+        }
+        .link-item {
+            padding: 0.7rem 1.2rem;
+            background: #fff;
+            border: 1px solid var(--gray300);
+            border-radius: 9999px;
+            text-decoration: none;
+            color: var(--gray600);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .link-item:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: #fff;
+            padding: 3.5rem 0 1.5rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.2rem;
+            padding-bottom: 2.2rem;
+            border-bottom: 1px solid var(--gray700);
+            margin-bottom: 1.2rem;
+        }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+        .footer-block {
+            margin-bottom: 1.8rem;
+        }
+        .footer-block h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .color-notice {color: var(--notice);}
+        .color-primary {color: var(--primary);}
+        .notice-list {
+            color: var(--gray300);
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+        }
+        .notice-list li {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+        .dot-notice {
+            color: var(--notice);
+        }
+        .simple-btn {
+            padding: 0.45rem 0.9rem;
+            background: var(--notice);
+            border: none;
+            border-radius: 0.25rem;
+            color: #000;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .simple-btn:hover {
+            background: #fbbf24;
+        }
+        .footer-desc {
+            color: var(--gray300);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        .footer-contact {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.2rem;
+            margin-top: 1.2rem;
+        }
+        .footer-contact a {
+            color: var(--gray300);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-contact a:hover {
+            color: var(--primary);
+        }
+        /* 底部版权*/
+        .copyright {
+            text-align: center;
+            color: var(--gray500);
+            font-size: 0.85rem;
+        }
+        .copyright a {
+            color: var(--gray500);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .copyright a:hover {
+            color: #fff;
+        }
+        /* 公告弹窗 */
+        #noticeModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+        #noticeModal.show {
+            display: flex;
+        }
+        .modal-box {
+            width: 100%;
+            max-width: 680px;
+            max-height: 70vh;
+            background: #fff;
+            border-radius: 0.6rem;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .modal-head {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-head h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--gray500);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal-body {
+            padding: 1.25rem;
+            overflow-y: auto;
+            flex: 1;
+            color: var(--gray600);
+            background: #fcfcfc;
+        }
+        .modal-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background: #eee;
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #94bff7;
+            border-radius: 99px;
+        }
+        .modal-item {
+            border-left: 3px solid var(--notice);
+            padding-left: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .modal-date {
+            color: var(--notice);
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+        .modal-foot {
+            padding: 0.9rem;
+            border-top: 1px solid var(--gray200);
+            text-align: center;
+        }
+        /* 返回顶部 */
+        #backTop {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 999px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: none;
+            transition: background 0.3s;
+            font-size: 1.1rem;
+        }
+        #backTop.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #backTop:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <!-- 单行文本复制弹窗 -->
+    <div id="textViewModal">
+        <div class="modal-single-line">
+            <div class="modal-text-content" id="modalText"></div>
+            <div class="modal-copy-action">
+                <button class="modal-copy-btn" id="modalCopyBtn">复制</button>
+                <button class="modal-close-btn" id="modalCloseBtn">关闭</button>
+            </div>
+        </div>
+    </div>
+    <!-- 图集多图弹窗 -->
+    <div id="galleryImgModal">
+        <div class="gallery-modal-main">
+            <div class="gallery-modal-header">
+                <span class="gallery-modal-title" id="galleryModalTitle">图集</span>
+                <button class="gallery-modal-close-top">×</button>
+            </div>
+            <div class="gallery-modal-body" id="galleryModalBody"></div>
+        </div>
+    </div>
+    <!-- 游戏多条复制弹窗 -->
+    <div id="gameMultiModal">
+        <div class="game-modal-main">
+            <div class="game-modal-header">
+                <span class="game-modal-title" id="gameModalTitle">游戏资源</span>
+                <button class="game-modal-close-top">×</button>
+            </div>
+            <div class="game-modal-body" id="gameModalBody"></div>
+        </div>
+    </div>
+    <!-- 导航栏 -->
+    <header id="navbar">
+        <div class="nav-wrap">
+            <div class="container nav-inner">
+                <a href="#home" class="logo">
+                    <!-- <div class="logo-icon">📖</div> -->
+                    <div class="logo-text">
+                        <h1>明天依然是晴天博客导航</h1>
+                        <!-- <p>生活·文章·游戏·图集</p> -->
+                    </div>
+                </a>
+                <nav class="desktop-nav">
+                    <a href="#home">首页</a>
+                    <a href="#banner-gallery">精选大图</a>
+                    <a href="#article">文章合集</a>
+                    <a href="#game" class="game-link">游戏分享</a>
+                    <a href="#gallery">生活图集</a>
+                    <a href="#link">常用导航</a>
+                </nav>
+                <button class="menu-btn" id="menuBtn">☰</button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#home">首页</a>
+                <a href="#banner-gallery">精选大图</a>
+                <a href="#article">文章合集</a>
+                <a href="#game" class="game-link">游戏分享</a>
+                <a href="#gallery">生活图集</a>
+                <a href="#link">常用导航</a>
+            </div>
+        </div>
+    </header>
+    <!-- 首屏 -->
+    <section id="home" class="scroll-item fade-up">
+        <div class="mask-dark"></div>
+        <div class="hero-content">
+            <div class="hero-tag">✨ 个人全内容聚合博客导航站</div>
+            <h2 class="hero-title-animate">欢迎来到我的多元博客空间</h2>
+            <p class="hero-desc-animate">随笔感悟｜精彩分享｜游戏分享｜资源整理 ｜导航收集<br>所有内容一键跳转，随手收藏，方便查阅</p>
+        </div>
+        <!-- 箭头移到section底部，脱离文字容器 -->
+        <div class="scroll-down">↓</div>
+    </section>
+    <!-- 精选大图 -->
+    <section id="banner-gallery">
+        <div class="container">
+            <div class="section-head scroll-item fade-up">
+                <h3>视觉精选大图</h3>
+                <div class="line-primary"></div>
+                <p>风景、日常、游戏精彩实拍</p>
+            </div>
+            <div class="grid-two">
+                <div class="carousel-box scroll-item scale-in">
+                    <div class="carousel-item">
+                        <div class="carousel-desc">
+                            <h4>网站背景</h4>
+                            <p>非常好看的背景图</p>
+                        </div>
+                    </div>
+                    <!-- <div class="carousel-item">
+                        <div class="carousel-desc">
+                            <h4>111</h4>
+                            <p>111111</p>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="scroll-item fade-right">
+                    <div class="text-card">
+                        <h4>图集内容说明</h4>
+                        <p>超精彩游戏瞬间，方便回看生活碎片。</p>
+                    </div>
+                    <div class="text-card">
+                        <h4>图集更新规则</h4>
+                        <p>日常分享定期上新。</p>
+                    </div>
+                    <a href="#gallery" class="btn-base">查看全部图集 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 游戏板块 -->
+    <section id="game">
+        <div class="container">
+            <div class="section-head scroll-item fade-up">
+                <h3 style="color:var(--game)">🎮我的游戏资源区</h3>
+                <div class="line-game"></div>
+                <p>各类游戏文案、键位码、操作按键、游戏设置等，点击查看完整内容可复制</p>
+            </div>
+            <div class="grid-three">
+                <div class="game-card scroll-item fade-up"
+                     data-game-name="三角洲行动"
+                     data-copy-list='["我的平板键位码 - ab80-5977-edfd-c439-6088","我的手机键位码 - 89a2-d389-cea5-db9d-8711"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>三角洲行动</h4>
+                            <span class="tag-game">FPS</span>
+                        </div>
+                        <p class="game-tip">我的个人分享数据：</p>
+                        <div class="copy-box">
+                           我的平板/手机键位码
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 以下注释均随机内容填充，开发展示效果使用，不展示渲染页面 -->
+
+                <!-- <div class="game-card scroll-item fade-up"
+                     data-game-name="星穹铁道"
+                     data-copy-list='["STARRAIL2026","SRGOODLUCK","TRAVEL88"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>星穹铁道</h4>
+                            <span class="tag-game">回合制</span>
+                        </div>
+                        <p class="game-tip">通用福利码：</p>
+                        <div class="copy-box">
+                            STARRAIL2026 | SRGOODLUCK | TRAVEL88
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="game-card scroll-item fade-up"
+                     data-game-name="我的世界"
+                     data-copy-list='["00000000000000000000000000000000000007"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>我的世界</h4>
+                            <span class="tag-game">沙盒</span>
+                        </div>
+                        <p class="game-tip">常用优质种子码：</p>
+                        <div class="copy-box">
+                            00000000000000000000000000000000000007
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="game-card scroll-item fade-up"
+                     data-game-name="英雄联盟"
+                     data-copy-list='["晚风打野","月色上单","雾里游走"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>英雄联盟</h4>
+                            <span class="tag-game">MOBA</span>
+                        </div>
+                        <p class="game-tip">个性游戏ID文案：</p>
+                        <div class="copy-box">
+                            晚风打野 | 月色上单 | 雾里游走
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="game-card scroll-item fade-up"
+                     data-game-name="Steam单机合集"
+                     data-copy-list='["艾尔登法环","荒野大镖客2","赛博朋克2077"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>Steam单机合集</h4>
+                            <span class="tag-game">PC单机</span>
+                        </div>
+                        <p class="game-tip">高分清单复制：</p>
+                        <div class="copy-box">
+                            艾尔登法环、荒野大镖客2、赛博朋克2077
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="game-card scroll-item fade-up"
+                     data-game-name="吃鸡类游戏"
+                     data-copy-list='["山野伏击","晚风空投","雾岛独行"]'>
+                    <div>
+                        <div class="game-head">
+                            <h4>吃鸡类游戏</h4>
+                            <span class="tag-game">生存射击</span>
+                        </div>
+                        <p class="game-tip">好听游戏昵称：</p>
+                        <div class="copy-box">
+                            山野伏击 | 晚风空投 | 雾岛独行
+                            <button class="copy-btn" onclick="openGameMultiModal(this)">查看</button>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    <!-- 文章合集 -->
+    <section id="article" class="container">
+        <div class="section-head scroll-item fade-up">
+            <h3>精选文章合集</h3>
+            <div class="line-primary"></div>
+            <p>暂未发布</p>
+            <!-- <p>点击卡片跳转外部文章链接，全部分类整理</p> -->
+        </div>
+
+        <div class="grid-three">
+
+            <!-- 以下注释均随机内容填充，开发展示效果使用，不展示渲染页面 -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-left">
+                <span class="article-tag tag-tech">技术干货</span>
+                <h4>前端零基础入门完整路线</h4>
+                <p>整理了从HTML到Vue全流程学习方案，附带学习资源清单。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-up">
+                <span class="article-tag tag-life">生活随笔</span>
+                <h4>普通人高效时间管理心得</h4>
+                <p>告别拖延，分享亲测好用的日程规划方法与工具。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-right">
+                <span class="article-tag tag-photo">摄影笔记</span>
+                <h4>手机拍照构图基础教程</h4>
+                <p>不用专业设备，普通人也能拍出干净好看的照片。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-left">
+                <span class="article-tag tag-book">读书笔记</span>
+                <h4>近期五本高分好书总结</h4>
+                <p>涵盖成长、心理、历史，每本附上我的个人读后感。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-up">
+                <span class="article-tag tag-tool">软件推荐</span>
+                <h4>电脑优质免费工具合集</h4>
+                <p>办公、剪辑、解压、笔记软件全整理，无广告绿色版。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+            <!-- <a href="#" target="_blank" class="article-card scroll-item fade-right">
+                <span class="article-tag tag-travel">旅行记录</span>
+                <h4>小城短途旅行游记</h4>
+                <p>小众景点打卡，美食路线+出行省钱攻略。</p>
+                <div class="read-link">前往阅读 →</div>
+            </a> -->
+
+        </div>
+    </section>
+    <!-- 生活图集 -->
+    <section id="gallery">
+        <div class="container">
+            <div class="section-head scroll-item fade-up">
+                <h3>日常图片收藏</h3>
+                <div class="line-primary"></div>
+            </div>
+            <div class="grid-four">
+
+                <div class="gallery-card scroll-item fade-up"
+                     data-gallery-title="背景图集"
+                     data-imgs='["./image/background.png"]'>
+                    <div class="gallery-img"></div>
+                    <div class="gallery-info">
+                        <h5>网站背景</h5>
+                        <p>非常好看的背景图</p>
+                    </div>
+                </div>
+
+                <!-- 以下注释均随机内容填充，开发展示效果使用，不展示渲染页面 -->
+
+                <!-- <div class="gallery-card scroll-item fade-up"
+                     data-gallery-title="城市街巷图集"
+                     data-imgs='["./image/background.png"]'>
+                    <div class="gallery-img"></div>
+                    <div class="gallery-info">
+                        <h5>城市街巷</h5>
+                        <p>傍晚街边随手拍摄</p>
+                    </div>
+                </div> -->
+
+                <!-- <div class="gallery-card scroll-item fade-up"
+                     data-gallery-title="家常美食图集"
+                     data-imgs='["./image/background.png","./image/background.png"]'>
+                    <div class="gallery-img"></div>
+                    <div class="gallery-info">
+                        <h5>家常美食</h5>
+                        <p>周末下厨美食记录</p>
+                    </div>
+                </div> -->
+
+                <!-- <div class="gallery-card scroll-item fade-up"
+                     data-gallery-title="海边晚霞图集"
+                     data-imgs='["./image/background.png","./image/background.png","./image/background.png"]'>
+                    <div class="gallery-img"></div>
+                    <div class="gallery-info">
+                        <h5>海边晚霞</h5>
+                        <p>海边落日氛围感照片</p>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    <!-- 常用导航 -->
+    <section id="link">
+        <div class="container">
+            <div class="section-head scroll-item fade-up">
+                <h3>常用站点导航</h3>
+                <div class="line-primary"></div>
+            </div>
+            <div class="link-wrap scroll-item fade-up">
+                <a href="https://xiaoqinblog.cn" target="_blank" class="link-item">📝 我的博客网站</a>
+                <a href="https://github.com" target="_blank" class="link-item">⌨ Github</a>
+                <a href="https://www.xiaoqinblog.cn/?post_type=moments" target="_blank" class="link-item">🖼️ 日常图片收藏</a>
+
+                <!-- 以下注释均随机内容填充，开发展示效果使用，不展示渲染页面 -->
+                <!-- <a href="https://www.xiaoqinblog.cn/aurora/cv/index.html" target="_blank" class="link-item">📄 个人简历</a> -->
+                <!-- <a href="https://juejin.cn" target="_blank" class="link-item">📝 掘金</a> -->
+                <!-- <a href="https://weibo.com" target="_blank" class="link-item">📢 微博</a> -->
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer id="notice">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-block scroll-item fade-up">
+                    <h4><span class="color-notice">📢</span>最新内容</h4>
+                    <ul class="notice-list">
+                        <li><span class="dot-notice">●</span>2026-07-31：明天依然是晴天博客导航正式上线</li>
+                        <!-- <li><span class="dot-notice">●</span>2026-07-25：网站全面改版，新增游戏板块、强化滚动动画</li> -->
+                        <!-- <li><span class="dot-notice">●</span>2026-07-20：开通留言通道，欢迎评论交流</li> -->
+                    </ul>
+                    <button class="simple-btn" onclick="openNoticeModal()">全部公告</button>
+                </div>
+                <div class="footer-block scroll-item fade-up">
+                    <h4><span class="color-primary">ℹ</span>关于导航</h4>
+                    <p class="footer-desc">个人自用静态博客导航，整合博客最新文章、图集、游戏分享、常用网站。所有图片均来源于网络，联系删除！</p>
+                    <div class="footer-contact">
+                        <a href="mailto:mtyrsqt@qq.com" title="发送邮件">✉</a>
+                        <a href="https://github.com" target="_blank" title="访问我的Github">⌨</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <a href="https://xiaoqinblog.cn">© 2026 明天依然是晴天</a> | <a href="#home">静态博客导航站</a>
+            </div>
+        </div>
+    </footer>
+    <!-- 公告弹窗 -->
+    <div id="noticeModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h4><span class="color-notice">📢</span>全部内容</h4>
+                <button class="close-modal" onclick="closeNoticeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-item">
+                    <div class="modal-date">2026-07-31</div>
+                    <p>明天依然是晴天博客导航正式上线</p>
+                </div>
+
+                <!-- 以下注释均随机内容填充，开发展示效果使用，不展示渲染页面 -->
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-07-25</div>
+                    <p>网站全面重构：重做导航、强化全页滚动动画、增加游戏板块、公告弹窗、大图轮播。</p>
+                </div> -->
+
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-07-20</div>
+                    <p>开通留言通道，欢迎所有访客留言交流，文章支持补充评论。</p>
+                </div> -->
+
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-07-12</div>
+                    <p>更新摄影教程三篇，手机拍照技巧全面补充。</p>
+                </div> -->
+
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-07-05</div>
+                    <p>上线第一批游戏板块，原神、星穹铁道福利码整理。</p>
+                </div> -->
+
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-06-28</div>
+                    <p>首次搭建博客导航基础页面，完成文章、图集基础框架。</p>
+                </div> -->
+
+                <!-- <div class="modal-item">
+                    <div class="modal-date">2026-06-15</div>
+                    <p>域名归档规划，确定博客长期更新方向：生活+技术+游戏。</p>
+                </div> -->
+
+            </div>
+            <div class="modal-foot">
+                <button class="simple-btn" onclick="closeNoticeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+    <!-- 返回顶部 -->
+    <button id="backTop">↑</button>
+    <script>
+        // 单行复制弹窗逻辑
+        let currentViewText = "";
+        const viewModal = document.getElementById('textViewModal');
+        const modalTextDom = document.getElementById('modalText');
+        const modalCopyBtn = document.getElementById('modalCopyBtn');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        // 图集多图弹窗逻辑
+        const galleryImgModal = document.getElementById('galleryImgModal');
+        const galleryModalTitle = document.getElementById('galleryModalTitle');
+        const galleryModalBody = document.getElementById('galleryModalBody');
+        const galleryCloseTop = document.querySelector('.gallery-modal-close-top');
+        const galleryCards = document.querySelectorAll('.gallery-card');
+        // 打开图集弹窗
+        galleryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.dataset.galleryTitle;
+                const imgArr = JSON.parse(card.dataset.imgs);
+                galleryModalTitle.innerText = title;
+                galleryModalBody.innerHTML = '';
+                imgArr.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = 'modal-img-item';
+                    img.loading = 'lazy';
+                    galleryModalBody.appendChild(img);
+                })
+                galleryImgModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            })
+        })
+        // 关闭图集弹窗
+        function closeGalleryModal() {
+            galleryImgModal.classList.remove('show');
+            document.body.style = '';
+        }
+        galleryCloseTop.addEventListener('click', closeGalleryModal);
+        galleryImgModal.addEventListener('click', e => {
+            if (e.target === galleryImgModal) closeGalleryModal();
+        })
+        // 游戏多条复制弹窗逻辑
+        const gameMultiModal = document.getElementById('gameMultiModal');
+        const gameModalTitle = document.getElementById('gameModalTitle');
+        const gameModalBody = document.getElementById('gameModalBody');
+        const gameCloseTop = document.querySelector('.game-modal-close-top');
+        // 打开游戏多复制弹窗
+        function openGameMultiModal(btn) {
+            const card = btn.closest('.game-card');
+            const gameName = card.dataset.gameName;
+            const copyArr = JSON.parse(card.dataset.copyList);
+            gameModalTitle.innerText = gameName + ' 分享列表';
+            gameModalBody.innerHTML = '';
+            copyArr.forEach(txt => {
+                const line = document.createElement('div');
+                line.className = 'copy-line-item';
+                line.innerHTML = `
+                    <span class="copy-text-val">${txt}</span>
+                    <button class="copy-line-btn">复制</button>
+                `;
+                gameModalBody.appendChild(line);
+                // 单行复制事件
+                const copyBtn = line.querySelector('.copy-line-btn');
+                copyBtn.addEventListener('click', async (ev) => {
+                    ev.stopPropagation();
+                    await navigator.clipboard.writeText(txt);
+                    copyBtn.innerText = '已复制';
+                    setTimeout(() => copyBtn.innerText = '复制', 1400);
+                })
+            })
+            gameMultiModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        // 关闭游戏弹窗
+        function closeGameModal() {
+            gameMultiModal.classList.remove('show');
+            document.body.style = '';
+        }
+        gameCloseTop.addEventListener('click', closeGameModal);
+        gameMultiModal.addEventListener('click', e => {
+            if (e.target === gameMultiModal) closeGameModal();
+        })
+        // 原有单行查看弹窗
+        function openTextView(btn) {
+            const box = btn.parentElement;
+            let fullText = box.innerText.replace(/查看$/, '').trim();
+            currentViewText = fullText;
+            modalTextDom.innerText = fullText;
+            viewModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        modalCopyBtn.onclick = function(){
+            navigator.clipboard.writeText(currentViewText).then(()=>{
+                this.innerText = "已复制";
+                setTimeout(()=> this.innerText = "复制", 1400);
+            }).catch(err=>{
+                const t = document.createElement('textarea');
+                t.value = currentViewText;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                document.body.removeChild(t);
+                this.innerText = "已复制";
+                setTimeout(()=> this.innerText = "复制", 1400);
+            })
+        }
+        function closeTextView(){
+            viewModal.classList.remove('show');
+            document.body.style.overflow = '';
+            currentViewText = "";
+        }
+        modalCloseBtn.onclick = closeTextView;
+        viewModal.addEventListener('click', e=>{
+            if(e.target === viewModal) closeTextView();
+        })
+        // 滚动动画
+        const animElements = document.querySelectorAll('.scroll-item');
+        let triggerOffset = window.innerHeight - 120;
+        function checkScrollAnim() {
+            const viewHeight = window.innerHeight;
+            animElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < triggerOffset && rect.bottom > 0) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            })
+        }
+        window.addEventListener('scroll', checkScrollAnim);
+        window.addEventListener('load', checkScrollAnim);
+        window.addEventListener('resize', () => {
+            triggerOffset = window.innerHeight - 120;
+            checkScrollAnim();
+        });
+        // 导航阴影
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', ()=>{
+            if(window.scrollY > 100){
+                navbar.style.boxShadow = '0 6px 18px rgba(0,0,0,0.08)';
+            }else{
+                navbar.style.boxShadow = 'none';
+            }
+        })
+        // 移动端菜单
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.onclick = ()=> mobileMenu.classList.toggle('show');
+        mobileMenu.querySelectorAll('a').forEach(link=>{
+            link.onclick=()=>mobileMenu.classList.remove('show');
+        })
+        // 返回顶部
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', ()=>{
+            backTop.classList.toggle('show', window.scrollY > 400);
+        })
+        backTop.onclick = ()=> window.scrollTo({top:0, behavior:'smooth'});
+        // 锚点平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+            anchor.addEventListener('click',e=>{
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if(target) target.scrollIntoView({behavior:'smooth'});
+            })
+        })
+        // 公告弹窗
+        const modal = document.getElementById('noticeModal');
+        function openNoticeModal(){
+            modal.classList.add('show');
+            document.body.style.overflow='hidden';
+        }
+        function closeNoticeModal(){
+            modal.classList.remove('show');
+            document.body.style.overflow='auto';
+        }
+        modal.addEventListener('click',e=>{
+            if(e.target === modal) closeNoticeModal();
+        })
+    </script>
+</body>
+</html>
